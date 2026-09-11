@@ -1,0 +1,21 @@
+.card{
+    display: grid;
+    grid-template-rows: auto 1fr;
+    width: 8rem;
+    aspect-ratio: 5/7;
+    padding: 0.8rem;
+    box-sizing: border-box;
+    background-color: #151820;
+    color: #f5d76e;
+    border: 2px solid #f5d76e;
+    border-radius: 0.75rem;
+    box-shadow: 0 0 12px rgb(245 215 110 / 20%);
+}
+.card-rank{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.card-suit{
+    font-size: 3rem;
+    place-self: center;
+}
