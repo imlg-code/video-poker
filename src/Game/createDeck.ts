@@ -6,10 +6,13 @@ const suits: Suit[] =
  /*Denne funksjonen oppretter en ny kortstokk med 52 kort og kombinerer dem etter farge og verdi*/
  export function createDeck(): PlayingCard[] {
     const deck: PlayingCard[] = [];
+    /*Løkker gjennom alle fargene og verdiene for å lage en kortstokk med 52 kort*/
    for (const suit of suits) {
      for (const rank of ranks) {
+        /*Oppretter et nytt kortobjekt med farge og verdi og legger det til i kortstokken*/
        deck.push({ suit, rank });
-     }}console.log("Deck created:", deck);
+     }}
+     /*Returnerer den ferdige kortstokken når funksjonen kalles på*/
     return deck;
     
  };
