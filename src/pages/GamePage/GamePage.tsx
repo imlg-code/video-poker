@@ -1,5 +1,4 @@
 
-
 function GamePage() {
   return (
     <main>

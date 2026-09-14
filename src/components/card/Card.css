@@ -1,0 +1,43 @@
+.card{
+    display: grid;
+    grid-template-rows: auto 1fr;
+    width: 8rem;
+    aspect-ratio: 5/7;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    background-color: #151820;
+    color: #f5d76e;
+    border: 2px solid #f5d76e;
+    border-radius: 0.75rem;
+    box-shadow: 0 0 12px rgb(245 215 110 / 20%);
+}
+.card-rank{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.card-suit{
+    font-size: 3rem;
+    place-self: center;
+}
+.card-back{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    place-items: center;
+   background: radial-gradient(
+    circle at center,
+    #756027 0%,
+    #3b321d 25%,
+    #1e1e1c 50%,
+    #151820 75%
+);
+    font-size: 2rem;
+}
+.card-back-top{
+    align-self: start;
+    justify-self: start;
+
+}
+.card-back-bottom{
+    align-self: end;
+    justify-self: end;
+}
