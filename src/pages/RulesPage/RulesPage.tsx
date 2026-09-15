@@ -3,8 +3,8 @@
 function RulesPage() {
   return (
     <main>
-      <h1>Regler og utbetalinger</h1>
-      <p>Her skal spilleren kunne lese reglene og utbetalinger.</p>
+      <h1>Rules and payouts</h1>
+      <p>Rules and payouts will be explained here.</p>
     </main>
   );
 }

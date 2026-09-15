@@ -11,18 +11,18 @@ const suitSymbols = {
     spades: "♠",
 };
 const suitNames = {
-    hearts: "hjerter",
-    diamonds: "ruter",
-    spades: "spar",
-    clubs: "kløver"
+    hearts: "hearts",
+    diamonds: "diamonds",
+    spades: "spades",
+    clubs: "clubs"
 } 
  const rankNames = {
-        A: "ess",
-        K: "konge",
-        Q: "dame", 
-        J: "knekt"
+        A: "Ace",
+        K: "King",
+        Q: "Queen", 
+        J: "Jack"
     }
-export default function Card({ card, faceDown = false }: CardProps) {
+export default function Card({ card, faceDown = true }: CardProps) {
   const rankName = 
     card.rank === "A" ||
     card.rank === "K" ||
@@ -36,7 +36,7 @@ export default function Card({ card, faceDown = false }: CardProps) {
         return(
             <div
             role="img"
-            aria-label="kort med baksiden opp" 
+            aria-label="Card face down" 
             className="card card-back">
                 <span className="card-back-top" aria-hidden="true">╔</span>
                 <span className="card-back-bottom" aria-hidden="true">╝</span>
@@ -46,7 +46,7 @@ export default function Card({ card, faceDown = false }: CardProps) {
     return(
         <div
         role="img"
-        aria-label={`${suitNames[card.suit]} ${rankName}`}
+        aria-label={`${rankName} of ${suitNames[card.suit]}`}
                  className="card">
         <span className="card-rank" aria-hidden="true">{card.rank}</span>
         <span className="card-suit" aria-hidden="true">{suitSymbols[card.suit]}</span>

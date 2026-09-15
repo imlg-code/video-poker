@@ -10,7 +10,8 @@ function App() {
     <>
       <Navigation />
       <Routes>
-        <Route path="/" element={<GamePage />} />
+        <Route path="/" element={<PlayersPage />} />
+        <Route path="/game" element={<GamePage/>}/>
         <Route path="/players" element={<PlayersPage />} />
         <Route path="/rules" element={<RulesPage />} />
       </Routes>
