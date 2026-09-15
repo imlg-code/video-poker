@@ -4,7 +4,7 @@ import "./Navigation.css";
 function Navigation() {
   return (
     <nav className="navigation" aria-label="Main navigation">
-        <NavLink to="/">Game</NavLink>
+        <NavLink to="/game">Game</NavLink>
         <NavLink to="/players">Players</NavLink>
         <NavLink to="/rules">Rules</NavLink>
     </nav>);
