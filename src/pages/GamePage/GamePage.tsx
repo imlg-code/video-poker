@@ -1,5 +1,5 @@
 import {usePlayerStore} from "../../store/playerStore.ts"
-
+import {useGameStore}from "../../store/gameStore.ts"
 //Viser spillsiden med navn og coins for den valgte spilleren
 function GamePage() {
   const players = usePlayerStore((state) => state.players);
@@ -8,6 +8,8 @@ function GamePage() {
   const selectedPlayer = players.find(
     (player) => player.id === selectedPlayerId
 );
+const currentBet = useGameStore((state) => state.currentBet);
+
   return (
     <main>
       <h1>Video Poker</h1>
@@ -16,6 +18,8 @@ function GamePage() {
       ): (
       <p>Please choose a player on the players page.</p>
       )}
+      <p>Current Bet: {currentBet} coins</p>
+      
     </main>
   );
 }
