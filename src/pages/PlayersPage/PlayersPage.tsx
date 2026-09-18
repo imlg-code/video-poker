@@ -28,7 +28,8 @@ function PlayersPage() {
   }
   return (
     <main>
-       <form
+       <form 
+       className="player-form"
         onSubmit={(event) => {
           //Hindrer at nettleseren laster siden på nytt når skjemaet sendes inn
           event.preventDefault();
@@ -46,16 +47,18 @@ function PlayersPage() {
         <button type="submit">Create player</button>
       </form>
       <h2>Players</h2>
-      <ul>
+      <ul className="player-list">
         {players.map((player) => (
           <li key={player.id}>
             <button
               type="button"
               onClick={() => handleSelectPlayer(player.id)}
               aria-pressed={selectedPlayerId === player.id}
-            ></button>
+            >
             {player.name} - {player.coins} coins
-            {selectedPlayerId === player.id && <span>- Selected</span>}
+            {selectedPlayerId === player.id &&(
+              <span aria-hidden="true"> ✓</span>)}
+            </button>
           </li>
         ))}
       </ul>

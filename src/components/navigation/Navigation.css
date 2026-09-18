@@ -1,18 +1,28 @@
 .navigation{
     display: flex;
+    flex-wrap: wrap;
+    background-color: #151820;
     gap: 1rem;
     padding: 1rem;
 }
-.navigation a{
+.navigation a {
     text-decoration: none;
-    color: black;
+    color: #ebdfc1;
+    padding: 0.6rem 1rem;
+    border-radius: 0.4rem;
+    font-weight: 600;
 }
-.navigation a:hover{
-    color: black;
-    text-decoration: underline;
+
+.navigation a:hover {
+    background-color: #222630;
 }
-.navigation a[aria-current="page"]{
-    color: black;
-    font-weight: bold;
-    text-decoration: underline;
+
+.navigation a[aria-current="page"] {
+    color: #f5d76e;
+    background-color: #222630;
+
+}
+.navigation a:focus-visible {
+    outline: 2px solid #f5d76e;
+    outline-offset: 4px;
 }
