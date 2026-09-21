@@ -7,9 +7,9 @@ function GamePage() {
   //Finner spiller med valgt id eller gir undefined hvis den ikke har noen match
   const selectedPlayer = players.find(
     (player) => player.id === selectedPlayerId
+    
 );
 const currentBet = useGameStore((state) => state.currentBet);
-
   return (
     <main>
       <h1>Video Poker</h1>
@@ -19,7 +19,7 @@ const currentBet = useGameStore((state) => state.currentBet);
       <p>Please choose a player on the players page.</p>
       )}
       <p>Current Bet: {currentBet} coins</p>
-      
+
     </main>
   );
 }

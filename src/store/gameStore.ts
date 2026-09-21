@@ -1,4 +1,5 @@
 import type { PlayingCard, PokerHand } from "../types/game";
+import {persist} from "zustand/middleware";
 
 import {create} from "zustand";
 //Beskriver hvilke fase spillet er i
@@ -14,8 +15,10 @@ type GameStore ={
     setBet: (newBet: number)=> void;
 }
 //Oppretter spillets store med tomme kort lister og startverdier
-export const useGameStore = create<GameStore>()((set, get)=> ({
-
+export const useGameStore = create<GameStore>()(
+    persist(
+    (set, get)=> ({
+    
     deck: [],
     hand: [],
     discardedCards: [],
@@ -37,5 +40,9 @@ export const useGameStore = create<GameStore>()((set, get)=> ({
         set({currentBet: newBet});
        
      
-    }
-}));
+    },
+}),
+{
+   name: "video-poker-game",
+}), 
+);
