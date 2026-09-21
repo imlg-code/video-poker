@@ -31,3 +31,60 @@
     border-color: #f5d76e;
     color: #f5d76e;
 }
+.card-table {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 8rem;
+    align-items: center;
+    gap: 2rem;
+    margin-block: 1.5rem;
+}
+
+.hand {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.card-slot {
+    aspect-ratio: 5 / 7;
+    border: 1px dashed #8c8062;
+    border-radius: 0.75rem;
+}
+
+.card-slot .card {
+    width: 100%;
+    height: 100%;
+}
+
+.deck-stack {
+    box-shadow:
+        4px 4px 0 #343027,
+        8px 8px 0 #756027;
+    border-radius: 0.75rem;
+}
+
+@media (max-width: 700px) {
+    .card-table {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .hand {
+        gap: 0.25rem;
+    }
+
+    .hand .card {
+        padding: 0.2rem;
+    }
+
+    .hand .card-rank {
+        font-size: 1rem;
+    }
+
+    .hand .card-suit {
+        font-size: 1.75rem;
+    }
+
+    .deck-stack {
+        justify-self: end;
+    }
+}

@@ -1,42 +1,69 @@
 import { create } from "zustand";
-import type { Player } from "../types/game";
 import { persist } from "zustand/middleware";
+import type { Player } from "../types/game";
 
 type PlayerStore = {
-  players: Player[];
-  addPlayer: (name: string) => void;
-  selectedPlayerId: string | null;
-  selectPlayer: (playerId: string) => void;
+    players: Player[];
+    selectedPlayerId: string | null;
+    addPlayer: (name: string) => void;
+    selectPlayer: (playerId: string) => void;
+    subtractCoins: (playerId: string, amount: number) => boolean;
 };
-/*addPlayer skal ta imot spillerens navn som tekst
-newPlayer får en unik id, navn og 100coins, set state lager en ny liste med eksisterende spillere
-og legger den nyeste bakerst.*/
+
+// Lagrer spillere og valgt spiller i localStorage.
 export const usePlayerStore = create<PlayerStore>()(
     persist(
-        (set) => ({
-  players: [],
-  selectedPlayerId: null,
+        (set, get) => ({
+            players: [],
+            selectedPlayerId: null,
 
-  //Tar imot et navn og legger til en spiller med unik id og 100 coins
-  addPlayer: (name) => {
-    const newPlayer: Player = {
-      id: crypto.randomUUID(),
-      name: name,
-      coins: 100,
-    };
+            // Oppretter en spiller med oppgitt navn, unik ID og 100 coins.
+            addPlayer: (name) => {
+                const newPlayer: Player = {
+                    id: crypto.randomUUID(),
+                    name: name,
+                    coins: 100,
+                };
 
-    set((state) => ({
-      players: [...state.players, newPlayer],
-    }));
-  },
-  // Tar imot en spiller id og lagrer hvilke spiller som er valgt
-  selectPlayer: (playerId) => {
-    set({ selectedPlayerId: playerId });
-  },
+                set((state) => ({
+                    players: [...state.players, newPlayer],
+                }));
+            },
+
+            // Tar imot en spiller-ID og lagrer hvilken spiller som er valgt.
+            selectPlayer: (playerId) => {
+                set({ selectedPlayerId: playerId });
+            },
+
+            // Trekker beløpet fra spilleren hvis beløpet er gyldig og saldoen er stor nok.
+            // Returnerer true hvis trekket lykkes, ellers false.
+            subtractCoins: (playerId, amount) => {
+                const player = get().players.find(
+                    (player) => player.id === playerId
+                );
+
+                if (!player || !Number.isInteger(amount) || amount <= 0) {
+                    return false;
+                }
+
+                if (player.coins < amount) {
+                    return false;
+                }
+
+                set((state) => ({
+                    players: state.players.map((player) =>
+                        player.id === playerId
+                            ? { ...player, coins: player.coins - amount }
+                            : player
+                    ),
+                }));
+
+                return true;
+            },
         }),
         {
-            //Navnet som brukes for lagringen i localStorage
-            name: "video-poker-players"
+            // Navnet som brukes for lagringen i localStorage.
+            name: "video-poker-players",
         }
     )
 );

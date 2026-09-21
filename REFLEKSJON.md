@@ -16,3 +16,6 @@ Jeg har lagd en side der man kan velge og opprette spiller. Hver spiller får en
 Jeg har laget GameStore med zustand som holder kortstokken, kort på hånden, kasta kort, innsats og hvilke fase spillet er i. Listene starter tomme før runden har startet. Lagde også setBet som endrer innsatsen. Jeg lærte at set setter verdien og get leser data fra store'n. Lærte også at if sjekkene må komme før set currentBet: newBet , fordi det stopper ugyldige bets før verdien settes.
 
 Jeg har laget TotalCoins, CurrentBet og PokerHandDisplay som egne komponenter. De får verdier gjennom props fra GamePage, som henter data fra store-ene. Jeg lærte forskjellen på CurrentBet, som er komponenten, og currentBet, som er verdien. Pokerhånden viser no hand yet når verdien er null.
+
+Jeg har lagt til faste "bet" knapper på 2 og 5 coins og en deal knapp. Innsatsen trekkes når kortene deles ut. Jeg bruker subtractCoins til å sjekke at spilleren har nok coins.
+Når spilleren trykker deal lager jeg en ny stokket kortstokk. Jeg bruker slice (0, 5) til å hente de fem første kortene til hånden og slice(5) til å beholde resten i kortstokken. Fasen endres til draw så spilleren ikke kan endre innsatsen eller dele ut nye kort før runden er ferdig. Har brukt CSS grid for å style kortene utdelt. Har også laget en visuell kortstokk som ligger faceDown.
