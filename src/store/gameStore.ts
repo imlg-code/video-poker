@@ -16,6 +16,7 @@ type GameStore = {
   pokerHand: PokerHand | null;
   setBet: (newBet: number) => void;
   dealCards: () => void;
+  selectPlayer:  (playerId: string) => boolean;
 };
 //Oppretter spillets store med tomme kort lister og startverdier
 export const useGameStore = create<GameStore>()(
@@ -37,6 +38,17 @@ export const useGameStore = create<GameStore>()(
           return;
         }
         set({ currentBet: newBet });
+      },
+      selectPlayer: (playerId) => {
+        const {players, selectedPlayerId} = usePlayerStore.getState();
+        if (get().phase === "draw" && playerId !==selectedPlayerId){
+          return false;
+        }
+        if (!players.some((player) => player.id === playerId)) {
+          return false;
+        }
+        usePlayerStore.setState({selectedPlayerId: playerId}); 
+        return true;
       },
       // Stopper utdelingen hvis en runde pågår eller innsatsen er ugyldig.
       dealCards: () => {

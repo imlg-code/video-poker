@@ -6,7 +6,6 @@ type PlayerStore = {
     players: Player[];
     selectedPlayerId: string | null;
     addPlayer: (name: string) => void;
-    selectPlayer: (playerId: string) => void;
     subtractCoins: (playerId: string, amount: number) => boolean;
 };
 
@@ -29,12 +28,6 @@ export const usePlayerStore = create<PlayerStore>()(
                     players: [...state.players, newPlayer],
                 }));
             },
-
-            // Tar imot en spiller-ID og lagrer hvilken spiller som er valgt.
-            selectPlayer: (playerId) => {
-                set({ selectedPlayerId: playerId });
-            },
-
             // Trekker beløpet fra spilleren hvis beløpet er gyldig og saldoen er stor nok.
             // Returnerer true hvis trekket lykkes, ellers false.
             subtractCoins: (playerId, amount) => {

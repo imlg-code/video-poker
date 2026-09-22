@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { usePlayerStore } from "../../store/playerStore";
 import { useNavigate } from "react-router";
+import { useGameStore } from "../../store/gameStore";
 
 //Viser spillersiden der man kan opprette eller velge spiller
 function PlayersPage() {
@@ -8,9 +9,10 @@ function PlayersPage() {
   const players = usePlayerStore((state) => state.players);
   const [name, setName] = useState("");
   const trimName = name.trim();
-  const selectPlayer = usePlayerStore((state) => state.selectPlayer);
+  const selectPlayer = useGameStore((state) => state.selectPlayer);
   const selectedPlayerId = usePlayerStore((state) => state.selectedPlayerId);
   const navigate = useNavigate();
+  const phase = useGameStore((state) => state.phase);
 
   //Oppretter en spiller med navnet fra inputfelt
   //Avbryter hvis navnet er tomt eller bare inneholder mellomrom
@@ -21,12 +23,15 @@ function PlayersPage() {
     addPlayer(trimName);
     setName("");
   }
-  //Velger spiller med id og navigerer til spillsiden
+  //Åpner spillsiden hvis player valget godtas
   function handleSelectPlayer(playerId: string) {
-    selectPlayer(playerId);
-    navigate("/game");
+    const selectSuccess = selectPlayer(playerId);
+    if (!selectSuccess) {
+      return ;
+    }
+    navigate ("/game");
   }
-  return (
+  return(
     <main>
        <form 
        className="player-form"
@@ -47,6 +52,9 @@ function PlayersPage() {
         <button type="submit">Create player</button>
       </form>
       <h2>Players</h2>
+      {phase=== "draw" && (
+        <p>Finish your current round before switching player.</p>
+      )}
       <ul className="player-list">
         {players.map((player) => (
           <li key={player.id}>
@@ -54,6 +62,7 @@ function PlayersPage() {
               type="button"
               onClick={() => handleSelectPlayer(player.id)}
               aria-pressed={selectedPlayerId === player.id}
+              disabled= {phase === "draw" && player.id !== selectedPlayerId}
             >
             {player.name} - {player.coins} coins
             {selectedPlayerId === player.id &&(
