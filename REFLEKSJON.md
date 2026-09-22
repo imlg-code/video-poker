@@ -19,3 +19,5 @@ Jeg har laget TotalCoins, CurrentBet og PokerHandDisplay som egne komponenter. D
 
 Jeg har lagt til faste "bet" knapper på 2 og 5 coins og en deal knapp. Innsatsen trekkes når kortene deles ut. Jeg bruker subtractCoins til å sjekke at spilleren har nok coins.
 Når spilleren trykker deal lager jeg en ny stokket kortstokk. Jeg bruker slice (0, 5) til å hente de fem første kortene til hånden og slice(5) til å beholde resten i kortstokken. Fasen endres til draw så spilleren ikke kan endre innsatsen eller dele ut nye kort før runden er ferdig. Har brukt CSS grid for å style kortene utdelt. Har også laget en visuell kortstokk som ligger faceDown.
+
+Har endret på tilgang til å bytte spiller mens spillrunden er igang. Spiller kan ikke bytte til en ny spiller før runden er ferdig. Bruker if sjekker for å se om fasen er draw og om playerId og selectedPlayerId stemmer overens. Har også deaktivert knappene for å velge ny spiller på playersPage med en paragraf som forklarer hvorfor de ikke kan bytte spiller.
