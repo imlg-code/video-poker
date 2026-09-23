@@ -7,6 +7,7 @@ type PlayerStore = {
     selectedPlayerId: string | null;
     addPlayer: (name: string) => void;
     subtractCoins: (playerId: string, amount: number) => boolean;
+    addCoins: (PlayerId: string, amount: number) => void;
 };
 
 // Lagrer spillere og valgt spiller i localStorage.
@@ -52,6 +53,19 @@ export const usePlayerStore = create<PlayerStore>()(
                 }));
 
                 return true;
+            },
+            //Legger til gevinst til spillerens saldo
+            addCoins: (playerId, amount) => {
+                if (!Number.isInteger(amount) || amount <= 0){
+                    return;
+                }
+                set ((state) =>({
+                    players: state.players.map((player) => 
+                    player.id === playerId
+                ? {...player, coins: player.coins + amount}
+            :player
+        ),
+                }));
             },
         }),
         {

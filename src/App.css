@@ -127,7 +127,38 @@
     justify-content: space-between;
     gap: 1.5rem;
 }
+.payout-table {
+    width: 100%;
+    max-width: 36rem;
+    border-collapse: collapse;
+    margin-block: 1.5rem;
+}
 
+.payout-table caption {
+    text-align: left;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.payout-table th,
+.payout-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #45433b;
+    text-align: left;
+}
+
+.payout-table thead {
+    background-color: #222630;
+    color: #f5d76e;
+}
+
+.payout-table tbody th {
+    font-weight: 400;
+}
+
+.payout-table td {
+    text-align: right;
+}
 
 @media (max-width: 700px) {
     .card-table {

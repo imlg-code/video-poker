@@ -20,6 +20,7 @@ function GamePage() {
   const holdIndexes = useGameStore((state) => state.holdIndexes);
   const changeHold = useGameStore((state) => state.changeHold);
   const phase = useGameStore((state) => state.phase);
+  const payout = useGameStore((state) => state.payout);
  
   return (
     <main>
@@ -73,6 +74,13 @@ function GamePage() {
               <BetControls coins={selectedPlayer.coins} />
           
           <PokerHandDisplay hand={pokerHand} />
+          {phase === "finished" &&(
+            <p className="payout-result" role="status">
+              {payout > 0
+              ? `Payout: ${payout} coins`
+            : "No payout this round."}
+            </p>
+          )}
           </div>
           </div>
         </>

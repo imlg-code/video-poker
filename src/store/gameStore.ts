@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware";
 import { createDeck, shuffleCard } from "../Game/deck";
 import { usePlayerStore } from "./playerStore";
 import calculateHand from "../Game/calculateHand";
-
+import { calculatePayout } from "../Game/payouts";
 import { create } from "zustand";
 //Beskriver hvilke fase spillet er i
 type GamePhase = "ready" | "draw" | "finished";
@@ -23,6 +23,7 @@ type GameStore = {
   changeHold: (index: number) => void;
   drawCards: ()=> void;
   newRound: () => void;
+  payout: number;
 };
 //Oppretter spillets store med tomme kort lister og startverdier
 export const useGameStore = create<GameStore>()(
@@ -35,6 +36,7 @@ export const useGameStore = create<GameStore>()(
       phase: "ready",
       pokerHand: null,
       holdIndexes: [],
+      payout: 0,
       //Setter bet til 2 eller 5 med mindre runden pågår
       setBet: (newBet) => {
         //Sjekker hvilke fase i spillet man er i, så innsatsen ikke kan endres etter kort er delt ut
@@ -75,14 +77,20 @@ export const useGameStore = create<GameStore>()(
             ),
           });
         
-          set({
-            holdIndexes: [... holdIndexes, index],
+        }
+        else{
+          set ({
+            holdIndexes: [...holdIndexes, index],
           });
         }
       },
       drawCards: () => {
-        const { phase, hand, deck, holdIndexes, discardedCards } = get();
+        const { phase, hand, deck, holdIndexes, discardedCards, currentBet } = get();
         if (phase !== "draw") {
+          return;
+        }
+        const { selectedPlayerId, addCoins } = usePlayerStore.getState();
+        if (selectedPlayerId === null){
           return;
         }
         const cardsToDraw = hand.length - holdIndexes.length;
@@ -102,14 +110,18 @@ export const useGameStore = create<GameStore>()(
           }
           return replacementCard;
         });
+        const finalHand = calculateHand(newHand);
+        const payout = calculatePayout(finalHand, currentBet);
         //Lagrer kortbytter og avlsutter bytte fasen
         set({
           hand: newHand,
           deck: remainingDeck,
           discardedCards: [...discardedCards, ...newlyDiscarded],
-          pokerHand: calculateHand(newHand),
+          pokerHand: finalHand,
           phase: "finished",
+          payout: payout,
         });
+        addCoins(selectedPlayerId, payout);
       },
       //Tømmer den ferdige runden og gjør klart for neste innsats
       newRound: () => {
@@ -124,6 +136,7 @@ export const useGameStore = create<GameStore>()(
           currentBet: 0,
           pokerHand: null,
           phase: "ready",
+          payout: 0,
 
         });
       },
@@ -159,6 +172,7 @@ export const useGameStore = create<GameStore>()(
           pokerHand: calculateHand(shuffledDeck.slice(0, 5)),
           phase: "draw",
           holdIndexes: [],
+          payout: 0,
         });
       },
     }),
