@@ -20,6 +20,8 @@ type GameStore = {
   selectPlayer:  (playerId: string) => boolean;
   holdIndexes: number[];
   changeHold: (index: number) => void;
+  drawCards: ()=> void;
+  newRound: () => void;
 };
 //Oppretter spillets store med tomme kort lister og startverdier
 export const useGameStore = create<GameStore>()(
@@ -80,6 +82,52 @@ export const useGameStore = create<GameStore>()(
             holdIndexes: [... holdIndexes, index],
           });
         }
+      },
+      drawCards: () => {
+        const { phase, hand, deck, holdIndexes, discardedCards } = get();
+        if (phase !== "draw") {
+          return;
+        }
+        const cardsToDraw = hand.length - holdIndexes.length;
+        if (deck.length < cardsToDraw){
+          return;
+        }
+        const remainingDeck = [...deck];
+        const newlyDiscarded: PlayingCard[] = [];
+        const newHand = hand.map((card, index) => {
+          if (holdIndexes.includes(index)){
+            return card;
+          }
+          newlyDiscarded.push(card);
+          const replacementCard = remainingDeck.shift();
+          if (!replacementCard) {
+            throw new Error ("Not enough cards to draw.");
+          }
+          return replacementCard;
+        });
+        //Lagrer kortbytter og avlsutter bytte fasen
+        set({
+          hand: newHand,
+          deck: remainingDeck,
+          discardedCards: [...discardedCards, ...newlyDiscarded],
+          phase: "finished",
+        });
+      },
+      //Tømmer den ferdige runden og gjør klart for neste innsats
+      newRound: () => {
+        if (get().phase !== "finished"){
+          return;
+        }
+        set({
+          deck: [],
+          hand: [],
+          discardedCards: [],
+          holdIndexes: [],
+          currentBet: 0,
+          pokerHand: null,
+          phase: "ready",
+
+        });
       },
       // Stopper utdelingen hvis en runde pågår eller innsatsen er ugyldig.
       dealCards: () => {
