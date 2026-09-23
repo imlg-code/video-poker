@@ -19,6 +19,7 @@ function GamePage() {
   const holdIndexes = useGameStore((state) => state.holdIndexes);
   const changeHold = useGameStore((state) => state.changeHold);
   const phase = useGameStore((state) => state.phase);
+ 
   return (
     <main>
       <h1>Video Poker</h1>
