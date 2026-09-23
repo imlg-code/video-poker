@@ -5,6 +5,7 @@ import CurrentBet from "../../components/currentBet/CurrentBet.tsx";
 import PokerHandDisplay from "../../components/pokerHandDisplay/PokerHandDisplay.tsx";
 import BetControls from "../../components/betControls/BetControls.tsx";
 import Card from "../../components/card/Card.tsx";
+
 //Viser spillsiden med navn og coins for den valgte spilleren
 function GamePage() {
   const players = usePlayerStore((state) => state.players);
@@ -47,9 +48,7 @@ function GamePage() {
                       aria-pressed={holdIndexes.includes(index)}
                       aria-label={`Keep card ${index + 1}`}
                       disabled={
-                        phase !== "draw" ||
-                        (holdIndexes.length >= 3 &&
-                          !holdIndexes.includes(index))
+                        phase !== "draw"
                       }
                     >
                       {holdIndexes.includes(index) ? "Keep ✓" : "Keep"}
@@ -68,8 +67,8 @@ function GamePage() {
             <div className="action-row">
             
             <p className="keep-info">
-                Keep up to 3 cards.
-                <span>{holdIndexes.length}/3</span>
+                Keep as many cards as you want.
+                <span>{holdIndexes.length}/5</span>
               </p>
               <BetControls coins={selectedPlayer.coins} />
           

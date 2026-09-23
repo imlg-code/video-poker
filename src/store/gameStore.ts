@@ -2,6 +2,7 @@ import type { PlayingCard, PokerHand } from "../types/game";
 import { persist } from "zustand/middleware";
 import { createDeck, shuffleCard } from "../Game/deck";
 import { usePlayerStore } from "./playerStore";
+import calculateHand from "../Game/calculateHand";
 
 import { create } from "zustand";
 //Beskriver hvilke fase spillet er i
@@ -73,11 +74,7 @@ export const useGameStore = create<GameStore>()(
               (savedIndex) => savedIndex !== index
             ),
           });
-        }else {
-          if (holdIndexes.length >=3){
-            return;
-
-          }
+        
           set({
             holdIndexes: [... holdIndexes, index],
           });
@@ -110,6 +107,7 @@ export const useGameStore = create<GameStore>()(
           hand: newHand,
           deck: remainingDeck,
           discardedCards: [...discardedCards, ...newlyDiscarded],
+          pokerHand: calculateHand(newHand),
           phase: "finished",
         });
       },
@@ -158,7 +156,7 @@ export const useGameStore = create<GameStore>()(
           hand: shuffledDeck.slice(0, 5),
           deck: shuffledDeck.slice(5),
           discardedCards: [],
-          pokerHand: null,
+          pokerHand: calculateHand(shuffledDeck.slice(0, 5)),
           phase: "draw",
           holdIndexes: [],
         });
