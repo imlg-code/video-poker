@@ -10,9 +10,9 @@ export default function BetControls({ coins }: BetControlProps) {
   const phase = useGameStore((state) => state.phase);
   const dealCards = useGameStore((state) => state.dealCards);
   return (
-    <fieldset disabled={phase === "draw"}>
+    <fieldset className="bet-container" disabled={phase === "draw"}>
       <legend>Choose your bet</legend>
-
+<div className="bet-btns">
       <button
         type="button"
         onClick={() => setBet(2)}
@@ -37,6 +37,7 @@ export default function BetControls({ coins }: BetControlProps) {
       >
         Deal
       </button>
+      </div>
     </fieldset>
   );
 }

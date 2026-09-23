@@ -6,6 +6,7 @@ import { usePlayerStore } from "./playerStore";
 import { create } from "zustand";
 //Beskriver hvilke fase spillet er i
 type GamePhase = "ready" | "draw" | "finished";
+
 //Beskriver dataene som skal lagres for spillet
 type GameStore = {
   deck: PlayingCard[];
@@ -17,6 +18,8 @@ type GameStore = {
   setBet: (newBet: number) => void;
   dealCards: () => void;
   selectPlayer:  (playerId: string) => boolean;
+  holdIndexes: number[];
+  changeHold: (index: number) => void;
 };
 //Oppretter spillets store med tomme kort lister og startverdier
 export const useGameStore = create<GameStore>()(
@@ -28,6 +31,7 @@ export const useGameStore = create<GameStore>()(
       currentBet: 0,
       phase: "ready",
       pokerHand: null,
+      holdIndexes: [],
       //Setter bet til 2 eller 5 med mindre runden pågår
       setBet: (newBet) => {
         //Sjekker hvilke fase i spillet man er i, så innsatsen ikke kan endres etter kort er delt ut
@@ -49,6 +53,33 @@ export const useGameStore = create<GameStore>()(
         }
         usePlayerStore.setState({selectedPlayerId: playerId}); 
         return true;
+      },
+    //Hvis kortet er valgt fjerner vi keep markering
+    //Hvis kortet ikke er valgt legger vi til keep markering
+      changeHold: (index) => {
+        const {phase, hand, holdIndexes} = get ();
+        if (phase !== "draw"){
+          return;
+        }
+        if (!Number.isInteger(index) || index < 0  || index >= hand.length){
+          return;
+        }
+        //Fjerner kortet vi klikket på, de andre valgte kortene beholdes
+        if (holdIndexes.includes (index)) {
+          set({
+            holdIndexes: holdIndexes.filter (
+              (savedIndex) => savedIndex !== index
+            ),
+          });
+        }else {
+          if (holdIndexes.length >=3){
+            return;
+
+          }
+          set({
+            holdIndexes: [... holdIndexes, index],
+          });
+        }
       },
       // Stopper utdelingen hvis en runde pågår eller innsatsen er ugyldig.
       dealCards: () => {
@@ -81,6 +112,7 @@ export const useGameStore = create<GameStore>()(
           discardedCards: [],
           pokerHand: null,
           phase: "draw",
+          holdIndexes: [],
         });
       },
     }),
