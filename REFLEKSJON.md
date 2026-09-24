@@ -31,3 +31,5 @@ Jeg har ryddet i mappestrukturen og laget en egen komponent som heter Game der j
 GamePage viser nå bare en h1 og Game komponenten. Jeg endret også navnet på mappen for hjelpefunksjoner med kortlogikk og beregninger til utils. Jeg lærte at <></> kalles fragment og at det brukes for å samle elementer uten å lage et ekstra HTML element, og kan ikke brukes className på dem. 
 
 Jeg har også ryddet i CSS så det blir fint på pc og mobilskjerm. Har brukt grid  for å plassere pokerhånd, bet knapper, keep teller og kortstokk. På liten skjerm ble noe av siden kuttet så jeg brukte media queries for å endre plasseringer og få det til å passe. Har også gjort det tydeligere for spilleren å se hvilke knapper som er valgt og hvilke som er låst. 
+
+Lagt til en knapp som endrer bakgrunnsbilde på spill siden. Endret på game-title og fullført regelsiden med forklaring av spillet. Også gjort pokerHand litt mer tydelig å lese ved å legge til bakgrunnsfarge. Testet at siden er responsiv ved å zoome, bytte skjermstørrelser og har sjekket at tastaturnavigasjonen fungerer.
