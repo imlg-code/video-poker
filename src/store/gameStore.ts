@@ -1,9 +1,9 @@
 import type { PlayingCard, PokerHand } from "../types/game";
 import { persist } from "zustand/middleware";
-import { createDeck, shuffleCard } from "../Game/deck";
+import { createDeck, shuffleCard } from "../utils/deck";
 import { usePlayerStore } from "./playerStore";
-import calculateHand from "../Game/calculateHand";
-import { calculatePayout } from "../Game/payouts";
+import calculateHand from "../utils/calculateHand";
+import { calculatePayout } from "../utils/payouts";
 import { create } from "zustand";
 //Beskriver hvilke fase spillet er i
 type GamePhase = "ready" | "draw" | "finished";
