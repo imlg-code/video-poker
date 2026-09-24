@@ -26,3 +26,8 @@ Jeg har laget calculateHand som finner hvilken pokerhånd spilleren har. Jeg tel
 
 Jeg har laget en utbetalingstabell som kobler hver pokerhånd til et tall som ganges med innsatsen. calculatePayout regner ut beløpet og addCoins legger det til spillerens saldo etter draw. Jeg bruker samme tabell til beregningen og visningen på regelsiden så jeg slipper å skrive verdiene to steder.
 Jeg testet at high Card ikke gir utbetaling, at en gevinst gir riktig saldo  og at refresh ikke betaler ut på nytt. Jeg rettet også en feil i Keep-funksjonen der else manglet. Det gjorde at kortene ikke kunne velges og fjernes riktig.
+
+Jeg har ryddet i mappestrukturen og laget en egen komponent som heter Game der jeg har flyttet hele spillbrettet.
+GamePage viser nå bare en h1 og Game komponenten. Jeg endret også navnet på mappen for hjelpefunksjoner med kortlogikk og beregninger til utils. Jeg lærte at <></> kalles fragment og at det brukes for å samle elementer uten å lage et ekstra HTML element, og kan ikke brukes className på dem. 
+
+Jeg har også ryddet i CSS så det blir fint på pc og mobilskjerm. Har brukt grid  for å plassere pokerhånd, bet knapper, keep teller og kortstokk. På liten skjerm ble noe av siden kuttet så jeg brukte media queries for å endre plasseringer og få det til å passe. Har også gjort det tydeligere for spilleren å se hvilke knapper som er valgt og hvilke som er låst. 

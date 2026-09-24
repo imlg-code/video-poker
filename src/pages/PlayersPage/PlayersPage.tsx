@@ -32,7 +32,7 @@ function PlayersPage() {
     navigate ("/game");
   }
   return(
-    <main>
+    <main className="players-page">
        <form 
        className="player-form"
         onSubmit={(event) => {

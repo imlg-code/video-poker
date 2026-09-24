@@ -1,4 +1,4 @@
-import { payouts } from "../../Game/payouts";
+import { payouts } from "../../utils/payouts";
 //Viser utbetaling  for hver pokerhånd  fra felles tabell
 export default function PayoutTable(){
     return(

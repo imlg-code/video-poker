@@ -8,9 +8,7 @@ export default function BetControls({ coins }: BetControlProps) {
   const currentBet = useGameStore((state) => state.currentBet);
   const setBet = useGameStore((state) => state.setBet);
   const phase = useGameStore((state) => state.phase);
-  const dealCards = useGameStore((state) => state.dealCards);
-  const drawCards = useGameStore((state) => state.drawCards);
-  const newRound = useGameStore((state) => state.newRound);
+
   return (
     <>
       <fieldset className="bet-container" disabled={phase !== "ready"}>
@@ -35,22 +33,6 @@ export default function BetControls({ coins }: BetControlProps) {
           </button>
         </div>
       </fieldset>
-      {phase === "finished" ? (
-        <button type="button" onClick={newRound}>
-          New round
-        </button>
-      ) : (
-        <button
-          type="button"
-          onClick={phase === "draw" ? drawCards : dealCards}
-          disabled={
-            phase === "ready" &&
-            ((currentBet !== 2 && currentBet !== 5) || currentBet > coins)
-          }
-        >
-          {phase === "draw" ? "Draw" : "Deal"}
-        </button>
-      )}
     </>
   );
 }
