@@ -5,6 +5,8 @@ type PokerHandDisplayProps={
 
 export default function PokerHandDisplay({hand}: PokerHandDisplayProps){
     return(
+        <div className="poker-hand">
         <p>Poker hand: {hand ?? "No hand yet."}</p>
+        </div>
     )
 }

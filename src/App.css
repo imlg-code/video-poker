@@ -1,11 +1,28 @@
-.players-page{
+.game-page .game-title {
+    margin: 0 0 1.5rem;
+    font-family: "Roboto", Arial, sans-serif;
+    font-size: clamp(2rem, 7vw, 4rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: 0.03em;
+    color: #e8e6e1;
+}
+
+.game-title span {
+    color: #f5d76e;
+    text-shadow: 0 0 16px rgb(245 215 110 / 25%);
+}
+
+.players-page {
     max-width: 28rem;
     margin-inline: auto;
 }
-.rules-page{
+
+.rules-page {
     max-width: 40rem;
     margin-inline: auto;
 }
+
 /*Lage ny player, velge player*/
 .player-form {
     display: grid;
@@ -57,12 +74,35 @@
     pointer-events: none;
 
     background:
-        linear-gradient(
-            to bottom,
+        linear-gradient(to bottom,
             rgb(13 16 23 / 90%),
-            rgb(13 16 23 / 65%)
-        ),
-        url("/public/red-table.png") center / cover no-repeat;
+            rgb(13 16 23 / 65%)),
+     var(--game-background, url("/red-table.png")) center / cover no-repeat;
+}
+.game-page[data-background="red"] {
+    --game-background: url("/green.jpg");
+}
+.game-header{
+        display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+.game-header .game-title{
+    margin: 0;
+
+}
+.theme-btn{
+        padding: 0.35rem 0.6rem;
+    font-size: 0.8rem;
+    min-height: 2rem;
+    background-color: #151820;
+    color: #f5d76e;
+    border: 1px solid #8c8062;
+}
+.theme-btn:hover{
+    background-color: #292519;
 }
 
 /*Player, bet og totalcoins*/
@@ -96,7 +136,7 @@
     gap: 0.75rem;
 }
 
-.hand > div {
+.hand>div {
     min-width: 0;
 }
 
@@ -165,6 +205,17 @@
     margin-top: 0.5rem;
     color: #f5d76e;
     font-weight: 600;
+}
+
+.poker-hand {
+    background-color: #151820;
+    color: #f5d76e;
+    margin: 0;
+    width: fit-content;
+    padding: 0.6rem;
+    min-height: 2.75rem;
+    border: 1px solid #8c8062;
+    border-radius: 0.4rem;
 }
 
 /*Teller beholdte kort*/
@@ -263,11 +314,11 @@
     width: 100%;
 }
 
-.deck-controls > button {
+.deck-controls>button {
     width: 100%;
 }
 
-.deck-controls > button:disabled {
+.deck-controls>button:disabled {
     opacity: 0.55;
     cursor: not-allowed;
 }
@@ -359,7 +410,7 @@
         padding: 0.6rem 0.35rem;
     }
 
-    .deck-controls > button {
+    .deck-controls>button {
         padding: 0.65rem 0.4rem;
     }
 
@@ -373,5 +424,12 @@
     .game-info {
         grid-template-columns: 1fr;
         gap: 0.5rem;
+    }
+    .game-header{
+        grid-template-columns: 1fr;
+    }
+    .theme-btn{
+        grid-row: 1;
+        justify-self: end;
     }
 }
